@@ -14,11 +14,7 @@ except ImportError:
 load_dotenv()
 
 from utils.pdf_parser import extract_text_with_azure, extract_multiple_resumes
-from utils.applicant_analysis import (
-    analyze_applicant_resume,
-    get_score_color,
-    get_score_label
-)
+from utils.applicant_analysis import analyze_applicant_resume, get_score_color, generate_suggested_skills, get_score_label
 from utils.recruiter_analysis import analyze_candidate, rank_candidates, generate_hiring_summary, get_recommendation_badge
 from prompts.applicant_prompts import ROLE_SKILL_EXPECTATIONS
 from prompts.recruiter_prompts import ROLE_DEFAULT_TECH_STACK
