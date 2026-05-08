@@ -23,7 +23,7 @@ from prompts.recruiter_prompts import ROLE_DEFAULT_TECH_STACK
 # Page Configuration
 # ─────────────────────────────────────────────
 st.set_page_config(
-    page_title="AI Resume Intelligence Platform",
+    page_title="Resume X",
     page_icon="🧠",
     layout="wide",
     initial_sidebar_state="expanded",
