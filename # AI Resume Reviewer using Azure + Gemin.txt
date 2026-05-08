@@ -1,0 +1,259 @@
+# AI Resume Reviewer using Azure + Gemini
+
+# Project Overview
+
+AI Resume Reviewer is a simple AI-powered web application that helps users improve their resumes using Azure AI services and Gemini API.
+
+The application allows users to upload a resume PDF and receive AI-generated feedback such as:
+- Resume strengths
+- Resume weaknesses
+- Missing skills
+- ATS optimization suggestions
+- Formatting improvements
+- Better wording recommendations
+
+This project is beginner-friendly and focuses on learning:
+- AI API integration
+- Azure cloud services
+- Python development
+- File handling
+- Prompt engineering
+
+---
+
+# Main Goal
+
+Build a simple but impressive AI-powered application using:
+- Python
+- Streamlit
+- Azure AI services
+- Gemini API
+
+without using overly complex technologies.
+
+---
+
+# Project Workflow
+
+```text
+User uploads resume PDF
+        ↓
+Azure Document Intelligence extracts text
+        ↓
+Gemini API analyzes resume
+        ↓
+AI-generated feedback displayed to user
+```
+
+---
+
+# Tech Stack
+
+# 1. Programming Language
+
+## Python
+
+### Why?
+- Beginner friendly
+- Excellent AI ecosystem
+- Easy API integration
+- Simple file handling
+
+---
+
+# 2. Frontend + Backend
+
+## Streamlit
+
+### Purpose
+Used to create the entire web application UI.
+
+### Why?
+- Very beginner friendly
+- Fast development
+- No frontend framework needed
+- Easy file uploads
+- Easy deployment
+
+### Example Features
+- Upload button
+- Text display
+- AI response display
+
+---
+
+# 3. Azure Service
+
+## Azure AI Document Intelligence
+
+### Purpose
+Extract text from uploaded PDF resumes.
+
+### Features Used
+- OCR (Optical Character Recognition)
+- PDF text extraction
+- Structured document parsing
+
+### Why?
+This gives the project real Azure cloud integration.
+
+---
+
+# 4. AI Model
+
+## Gemini API
+
+### Purpose
+Analyze resume text and generate suggestions.
+
+### AI Tasks
+- Resume analysis
+- ATS suggestions
+- Skill recommendations
+- Formatting improvements
+
+### Why?
+- Easy API integration
+- Cheap/free usage tier
+- Good text generation quality
+
+---
+
+# Simple Folder Structure
+
+```text
+ai-resume-reviewer/
+│
+├── app.py
+├── requirements.txt
+├── .env
+├── README.md
+└── sample_resume.pdf
+```
+
+---
+
+# Main Features
+
+# 1. Resume Upload
+
+Users upload PDF resumes using Streamlit.
+
+### Supported Format
+- PDF
+
+---
+
+# 2. Resume Text Extraction
+
+Azure Document Intelligence extracts text from the uploaded PDF.
+
+### Example Extracted Data
+- Skills
+- Education
+- Experience
+- Projects
+
+---
+
+# 3. AI Resume Analysis
+
+Gemini analyzes the extracted text.
+
+### AI Feedback Includes
+- Resume strengths
+- Resume weaknesses
+- Missing keywords
+- ATS suggestions
+- Better wording ideas
+
+---
+
+# Example AI Prompt
+
+```python
+prompt = f"""
+Analyze this resume for a Data Engineering role.
+
+Provide:
+1. Strengths
+2. Weaknesses
+3. Missing skills
+4. ATS optimization suggestions
+5. Formatting improvements
+"""
+```
+
+---
+
+# Environment Variables
+
+Create a `.env` file.
+
+```env
+AZURE_DOCUMENT_INTELLIGENCE_KEY=
+AZURE_DOCUMENT_INTELLIGENCE_ENDPOINT=
+
+GEMINI_API_KEY=
+```
+
+---
+
+# Required Python Libraries
+
+```txt
+streamlit
+python-dotenv
+google-generativeai
+azure-ai-documentintelligence
+PyPDF2
+```
+
+---
+
+# Learning Outcomes
+
+This project teaches:
+- Python programming
+- AI API integration
+- Azure cloud basics
+- File uploads
+- PDF processing
+- Prompt engineering
+- Streamlit app development
+
+---
+
+# Why This Project is Good
+
+This project is:
+- Beginner friendly
+- Cloud powered
+- AI powered
+- Easy to understand
+- Portfolio worthy
+- Real-world useful
+
+It demonstrates practical AI integration without overwhelming system complexity.
+
+---
+
+# Future Improvements
+
+After completing the MVP, future upgrades can include:
+- Resume scoring system
+- Resume history
+- Role-specific optimization
+- Downloadable reports
+- Cover letter generation
+- LinkedIn profile analysis
+
+---
+
+# Final Goal
+
+Create a simple but professional AI-powered application that demonstrates:
+- Azure cloud integration
+- Generative AI usage
+- Real-world problem solving
+- Practical software engineering skills
