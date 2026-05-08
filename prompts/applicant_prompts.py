@@ -1,74 +1,46 @@
-<<<<<<< HEAD
 from typing import Optional
 
 
-=======
->>>>>>> 041a279946a7f606a0bfa9973faa39aa3fac3376
 ROLE_SKILL_EXPECTATIONS = {
     "Software Engineer": {
         "Fresher": ["Python/Java/C++", "Data Structures", "Algorithms", "OOP", "Git", "Basic SQL"],
         "Mid-Level": ["System Design", "REST APIs", "Microservices", "CI/CD", "Docker", "Cloud Basics"],
-<<<<<<< HEAD
         "Senior-Level": ["Architecture Design", "Distributed Systems", "Team Leadership", "Performance Optimization",
                          "Cloud Infrastructure"],
-=======
-        "Senior-Level": ["Architecture Design", "Distributed Systems", "Team Leadership", "Performance Optimization", "Cloud Infrastructure"],
->>>>>>> 041a279946a7f606a0bfa9973faa39aa3fac3376
     },
     "Data Analyst": {
         "Fresher": ["SQL", "Excel", "Python/R basics", "Data Visualization", "Statistics"],
         "Mid-Level": ["Advanced SQL", "Power BI/Tableau", "Python (Pandas)", "A/B Testing", "Dashboard Design"],
-<<<<<<< HEAD
         "Senior-Level": ["Data Strategy", "Business Intelligence", "Advanced Analytics", "Stakeholder Management",
                          "Predictive Modeling"],
-=======
-        "Senior-Level": ["Data Strategy", "Business Intelligence", "Advanced Analytics", "Stakeholder Management", "Predictive Modeling"],
->>>>>>> 041a279946a7f606a0bfa9973faa39aa3fac3376
     },
     "Data Scientist": {
         "Fresher": ["Python", "Statistics", "Machine Learning basics", "Pandas", "Scikit-learn"],
         "Mid-Level": ["Deep Learning", "Feature Engineering", "Model Deployment", "MLflow", "Cloud ML Services"],
-<<<<<<< HEAD
         "Senior-Level": ["Research Leadership", "ML Architecture", "Business Strategy", "Advanced Deep Learning",
                          "Team Mentorship"],
-=======
-        "Senior-Level": ["Research Leadership", "ML Architecture", "Business Strategy", "Advanced Deep Learning", "Team Mentorship"],
->>>>>>> 041a279946a7f606a0bfa9973faa39aa3fac3376
     },
     "Data Engineer": {
         "Fresher": ["Python", "SQL", "Pandas", "Basic Cloud Knowledge", "Data Processing"],
         "Mid-Level": ["Apache Spark", "Airflow", "ETL Pipelines", "Azure/AWS", "Database Optimization"],
-<<<<<<< HEAD
         "Senior-Level": ["Distributed Systems", "Data Architecture", "Team Leadership", "Cloud Infrastructure",
                          "Performance Optimization"],
-=======
-        "Senior-Level": ["Distributed Systems", "Data Architecture", "Team Leadership", "Cloud Infrastructure", "Performance Optimization"],
->>>>>>> 041a279946a7f606a0bfa9973faa39aa3fac3376
     },
     "Machine Learning Engineer": {
         "Fresher": ["Python", "ML Frameworks", "Statistics", "Model Training basics", "Git"],
         "Mid-Level": ["TensorFlow/PyTorch", "Model Deployment", "MLOps", "Docker", "API Development"],
-<<<<<<< HEAD
         "Senior-Level": ["ML Platform Design", "Large Scale Training", "Research Leadership", "Infrastructure",
                          "Business Impact"],
-=======
-        "Senior-Level": ["ML Platform Design", "Large Scale Training", "Research Leadership", "Infrastructure", "Business Impact"],
->>>>>>> 041a279946a7f606a0bfa9973faa39aa3fac3376
     },
     "AI Engineer": {
         "Fresher": ["Python", "Prompt Engineering", "LLM APIs", "Basic ML", "REST APIs"],
         "Mid-Level": ["LangChain", "Vector Databases", "LLMs", "FastAPI", "Cloud Platforms", "RAG Systems"],
-<<<<<<< HEAD
         "Senior-Level": ["AI Architecture", "Fine-tuning LLMs", "Scalable AI Systems", "Team Leadership",
                          "Product Strategy"],
-=======
-        "Senior-Level": ["AI Architecture", "Fine-tuning LLMs", "Scalable AI Systems", "Team Leadership", "Product Strategy"],
->>>>>>> 041a279946a7f606a0bfa9973faa39aa3fac3376
     },
 }
 
 
-<<<<<<< HEAD
 def get_applicant_analysis_prompt(
     resume_text: str,
     role: str,
@@ -77,10 +49,6 @@ def get_applicant_analysis_prompt(
 ) -> str:
     skills = expected_skills if expected_skills else ROLE_SKILL_EXPECTATIONS.get(role, {}).get(experience, [])
 
-=======
-def get_applicant_analysis_prompt(resume_text: str, role: str, experience: str) -> str:
-    skills = ROLE_SKILL_EXPECTATIONS.get(role, {}).get(experience, [])
->>>>>>> 041a279946a7f606a0bfa9973faa39aa3fac3376
     skills_str = "\n".join(f"- {s}" for s in skills)
 
     return f"""
@@ -115,7 +83,6 @@ Provide a comprehensive analysis in the following JSON format:
 
 Return ONLY valid JSON. No extra text or markdown.
 """
-<<<<<<< HEAD
 
 
 def get_skill_generation_prompt(role: str, experience: str) -> str:
@@ -126,5 +93,3 @@ required for a {experience} {role}.
 Return ONLY a comma-separated list of skills. 
 No conversational text, no numbering.
 """
-=======
->>>>>>> 041a279946a7f606a0bfa9973faa39aa3fac3376
