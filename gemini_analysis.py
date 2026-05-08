@@ -1,6 +1,5 @@
 import os
 import json
-<<<<<<< HEAD
 from groq import Groq
 
 
@@ -33,23 +32,10 @@ def _strip_code_fences(raw_text: str) -> str:
     if text.startswith("json"):
         text = text[4:].lstrip()
     return text
-=======
-import google.generativeai as genai
-
-
-def _get_gemini_model():
-    """Initialize and return the Gemini model."""
-    api_key = os.getenv("GEMINI_API_KEY", "")
-    if not api_key:
-        raise ValueError("GEMINI_API_KEY not found in environment variables.")
-    genai.configure(api_key=api_key)
-    return genai.GenerativeModel("gemini-3.1-flash-lite")
->>>>>>> 041a279946a7f606a0bfa9973faa39aa3fac3376
 
 
 def call_gemini(prompt: str) -> dict:
     """
-<<<<<<< HEAD
     Redirects calls to Groq API while preserving the interface.
     Returns parsed dict or raises an exception.
     """
@@ -72,26 +58,8 @@ def call_gemini(prompt: str) -> dict:
         raise ValueError("Groq returned an empty response.")
 
     raw_text = _strip_code_fences(raw_text)
-=======
-    Send a prompt to Gemini and parse the JSON response.
-    Returns parsed dict or raises an exception.
-    """
-    model = _get_gemini_model()
-    response = model.generate_content(prompt)
-    raw_text = response.text.strip()
-
-    # Strip markdown code fences if present
-    if raw_text.startswith("```"):
-        raw_text = raw_text.split("```")[1]
-        if raw_text.startswith("json"):
-            raw_text = raw_text[4:]
->>>>>>> 041a279946a7f606a0bfa9973faa39aa3fac3376
 
     try:
         return json.loads(raw_text)
     except json.JSONDecodeError as e:
-<<<<<<< HEAD
         raise ValueError(f"Groq returned invalid JSON: {e}\nRaw response:\n{raw_text}")
-=======
-        raise ValueError(f"Gemini returned invalid JSON: {e}\nRaw response:\n{raw_text}")
->>>>>>> 041a279946a7f606a0bfa9973faa39aa3fac3376
