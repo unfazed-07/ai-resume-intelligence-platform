@@ -1,6 +1,5 @@
 from utils.gemini_analysis import call_gemini
 from prompts.applicant_prompts import get_applicant_analysis_prompt
-<<<<<<< HEAD
 from utils.gemini_analysis import call_gemini
 
 
@@ -29,20 +28,11 @@ def analyze_applicant_resume(
     experience: str,
     required_skills: list | None = None,
 ) -> dict:
-=======
-
-
-def analyze_applicant_resume(resume_text: str, role: str, experience: str) -> dict:
->>>>>>> 041a279946a7f606a0bfa9973faa39aa3fac3376
     """
     Analyze a single applicant resume using Gemini.
     Returns structured analysis dict.
     """
-<<<<<<< HEAD
     prompt = get_applicant_analysis_prompt(resume_text, role, experience, required_skills)
-=======
-    prompt = get_applicant_analysis_prompt(resume_text, role, experience)
->>>>>>> 041a279946a7f606a0bfa9973faa39aa3fac3376
     result = call_gemini(prompt)
     return result
 
