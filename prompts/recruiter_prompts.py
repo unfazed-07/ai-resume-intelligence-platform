@@ -33,16 +33,12 @@ ROLE_DEFAULT_TECH_STACK = {
 
 
 def get_recruiter_analysis_prompt(resume_text: str, role: str, experience: str, required_skills: list) -> str:
-<<<<<<< HEAD
     # Use the correct variable name 'required_skills'
-=======
->>>>>>> 041a279946a7f606a0bfa9973faa39aa3fac3376
     skills_str = "\n".join(f"- {s}" for s in required_skills)
 
     return f"""
 You are a senior technical recruiter and AI hiring specialist.
 
-<<<<<<< HEAD
 ### TASK:
 1. Extract candidate contact information.
 2. Look specifically for an email address (e.g., user@example.com). 
@@ -53,19 +49,10 @@ You are a senior technical recruiter and AI hiring specialist.
 {skills_str}
 
 ### CANDIDATE RESUME:
-=======
-Evaluate the following resume for a **{experience} {role}** position.
-
-Required Skills for this position:
-{skills_str}
-
-Candidate Resume:
->>>>>>> 041a279946a7f606a0bfa9973faa39aa3fac3376
 \"\"\"
 {resume_text}
 \"\"\"
 
-<<<<<<< HEAD
 ### OUTPUT INSTRUCTIONS:
 Analyze the candidate and provide a report in the following JSON format ONLY. 
 Do not include markdown fences or conversational text.
@@ -73,11 +60,6 @@ Do not include markdown fences or conversational text.
 {{
   "candidate_name": "<extract name from resume or 'Unknown'>",
   "candidate_email": "<extract email address or 'No Mail'>",
-=======
-Analyze the candidate and provide a report in the following JSON format:
-{{
-  "candidate_name": "<extract name from resume or 'Unknown'>",
->>>>>>> 041a279946a7f606a0bfa9973faa39aa3fac3376
   "overall_match_score": <integer 0-100>,
   "skill_match_score": <integer 0-100>,
   "technical_score": <integer 0-100>,
@@ -94,11 +76,6 @@ Analyze the candidate and provide a report in the following JSON format:
   "recommendation_reason": "<2-3 sentence explanation for recommendation>",
   "interview_focus_areas": [<list of 3-4 topics to probe in interview>]
 }}
-<<<<<<< HEAD
-=======
-
-Return ONLY valid JSON. No extra text or markdown.
->>>>>>> 041a279946a7f606a0bfa9973faa39aa3fac3376
 """
 
 
