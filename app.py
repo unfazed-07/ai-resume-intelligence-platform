@@ -1,6 +1,5 @@
 import streamlit as st
 import os
-<<<<<<< HEAD
 from utils.email_sender import send_automation_email
 try:
     from dotenv import load_dotenv
@@ -10,19 +9,12 @@ except ImportError:
 
     subprocess.check_call([sys.executable, "-m", "pip", "install", "python-dotenv"])
     from dotenv import load_dotenv
-=======
-from dotenv import load_dotenv
->>>>>>> 041a279946a7f606a0bfa9973faa39aa3fac3376
 
 # Load environment variables
 load_dotenv()
 
 from utils.pdf_parser import extract_text_with_azure, extract_multiple_resumes
-<<<<<<< HEAD
 from utils.applicant_analysis import analyze_applicant_resume, get_score_color, generate_suggested_skills, get_score_label
-=======
-from utils.applicant_analysis import analyze_applicant_resume, get_score_color, get_score_label
->>>>>>> 041a279946a7f606a0bfa9973faa39aa3fac3376
 from utils.recruiter_analysis import analyze_candidate, rank_candidates, generate_hiring_summary, get_recommendation_badge
 from prompts.applicant_prompts import ROLE_SKILL_EXPECTATIONS
 from prompts.recruiter_prompts import ROLE_DEFAULT_TECH_STACK
@@ -110,7 +102,6 @@ def render_score_metric(label: str, score: int):
 # Applicant Mode UI
 # ─────────────────────────────────────────────
 def render_applicant_mode():
-<<<<<<< HEAD
     st.markdown("### 👤 AI-Powered Resume Analysis")
     
     # Input row
@@ -161,49 +152,6 @@ def render_applicant_mode():
             render_applicant_results(result, role, experience)
 
             
-=======
-    st.markdown("### 👤 Applicant Resume Analysis")
-    st.markdown("Upload your resume and get personalized AI feedback tailored to your target role.")
-
-    col1, col2 = st.columns(2)
-    with col1:
-        role = st.selectbox("🎯 Target Role", ROLES)
-    with col2:
-        experience = st.selectbox("📊 Experience Level", EXPERIENCE_LEVELS)
-
-    # Show expected skills preview
-    expected_skills = ROLE_SKILL_EXPECTATIONS[role][experience]
-    st.info(f"**Expected Skills for {experience} {role}:** {' • '.join(expected_skills)}")
-
-    uploaded_file = st.file_uploader(
-        "📄 Upload Your Resume (PDF)",
-        type=["pdf"],
-        help="Upload your resume in PDF format for AI analysis."
-    )
-
-    if uploaded_file:
-        st.success(f"✅ Uploaded: **{uploaded_file.name}**")
-
-        if st.button("🚀 Analyze My Resume", use_container_width=True, type="primary"):
-            with st.spinner("🔍 Extracting resume text..."):
-                file_bytes = uploaded_file.read()
-                resume_text = extract_text_with_azure(file_bytes, uploaded_file.name)
-
-            if not resume_text or "[ERROR]" in resume_text:
-                st.error("Could not extract text from your PDF. Please ensure it's a readable PDF.")
-                return
-
-            with st.spinner("🧠 Gemini is analyzing your resume..."):
-                try:
-                    result = analyze_applicant_resume(resume_text, role, experience)
-                except Exception as e:
-                    st.error(f"Analysis failed: {e}")
-                    return
-
-            render_applicant_results(result, role, experience)
-
-
->>>>>>> 041a279946a7f606a0bfa9973faa39aa3fac3376
 def render_applicant_results(result: dict, role: str, experience: str):
     st.markdown("---")
     st.markdown(f"## 📊 Analysis Results — {experience} {role}")
@@ -278,7 +226,6 @@ def render_recruiter_mode():
     st.markdown("### 🏢 Recruiter — Candidate Evaluation")
     st.markdown("Upload multiple resumes for AI-powered candidate ranking and hiring insights.")
 
-<<<<<<< HEAD
     # ── Job Setup ──
     col1, col2 = st.columns([3, 2])
     with col1:
@@ -318,30 +265,6 @@ def render_recruiter_mode():
     required_skills = [s.strip() for s in custom_input.split("\n") if s.strip()]
 
     # ── File Upload ──
-=======
-    col1, col2 = st.columns(2)
-    with col1:
-        role = st.selectbox("🎯 Hiring Role", ROLES)
-    with col2:
-        experience = st.selectbox("📊 Experience Level", EXPERIENCE_LEVELS)
-
-    # Default Tech Stack
-    default_skills = ROLE_DEFAULT_TECH_STACK[role][experience]
-    st.markdown("**🧩 Default Tech Stack for this Role:**")
-    st.info(" • ".join(default_skills))
-
-    # Custom Tech Stack
-    st.markdown("**✏️ Customize Required Skills** *(one per line)*")
-    custom_input = st.text_area(
-        "Required Skills",
-        value="\n".join(default_skills),
-        height=150,
-        label_visibility="collapsed"
-    )
-    required_skills = [s.strip() for s in custom_input.split("\n") if s.strip()]
-
-    # File Upload
->>>>>>> 041a279946a7f606a0bfa9973faa39aa3fac3376
     uploaded_files = st.file_uploader(
         "📂 Upload Candidate Resumes (PDF) — Multiple Allowed",
         type=["pdf"],
@@ -353,7 +276,6 @@ def render_recruiter_mode():
         st.success(f"✅ {len(uploaded_files)} resume(s) uploaded")
 
         if st.button("🚀 Analyze All Candidates", use_container_width=True, type="primary"):
-<<<<<<< HEAD
             with st.spinner("🔍 Extracting and analyzing candidates..."):
                 # Use existing parser logic
                 resume_texts = extract_multiple_resumes(uploaded_files)
@@ -485,57 +407,12 @@ def render_recruiter_results(ranked: list, summary: dict, role: str, experience:
             st.error(f"Excel generation failed: {e}")
 
     # ── Section 3: Hiring Summary Dashboard ──
-=======
-            with st.spinner("🔍 Extracting text from all resumes..."):
-                resume_texts = extract_multiple_resumes(uploaded_files)
-
-            all_results = []
-            progress = st.progress(0, text="Analyzing candidates...")
-            total = len(resume_texts)
-
-            for i, (filename, text) in enumerate(resume_texts.items()):
-                progress.progress((i + 1) / total, text=f"Analyzing {filename}...")
-                if not text or "[ERROR]" in text:
-                    st.warning(f"⚠️ Could not extract text from {filename}. Skipping.")
-                    continue
-                try:
-                    result = analyze_candidate(text, role, experience, required_skills)
-                    result["_filename"] = filename
-                    all_results.append(result)
-                except Exception as e:
-                    st.warning(f"⚠️ Analysis failed for {filename}: {e}")
-
-            progress.empty()
-
-            if not all_results:
-                st.error("No candidates could be analyzed.")
-                return
-
-            ranked = rank_candidates(all_results, role, experience)
-
-            with st.spinner("📊 Generating hiring summary..."):
-                try:
-                    summary = generate_hiring_summary(ranked, role, experience)
-                except Exception as e:
-                    summary = {}
-                    st.warning(f"Could not generate summary: {e}")
-
-            render_recruiter_results(ranked, summary, role, experience)
-
-
-def render_recruiter_results(ranked: list, summary: dict, role: str, experience: str):
-    st.markdown("---")
-    st.markdown(f"## 🏆 Candidate Rankings — {experience} {role}")
-
-    # ── Hiring Summary ──
->>>>>>> 041a279946a7f606a0bfa9973faa39aa3fac3376
     if summary:
         st.markdown('<div class="section-header">📊 Hiring Summary</div>', unsafe_allow_html=True)
         col1, col2, col3 = st.columns(3)
         with col1:
             st.success(f"🥇 Top Candidate: **{summary.get('top_candidate', 'N/A')}**")
         with col2:
-<<<<<<< HEAD
             st.info(f"✅ Shortlisted: **{len(summary.get('shortlisted', []))}**")
         with col3:
             st.error(f"❌ Rejected: **{len(summary.get('rejected', []))}**")
@@ -547,26 +424,10 @@ def render_recruiter_results(ranked: list, summary: dict, role: str, experience:
             st.warning(f"**Common Skill Gaps:** {' • '.join(gaps)}")
 
     # ── Section 4: Candidate Profiles ──
-=======
-            shortlisted = summary.get("shortlisted", [])
-            st.info(f"✅ Shortlisted: **{len(shortlisted)}** candidates")
-        with col3:
-            rejected = summary.get("rejected", [])
-            st.error(f"❌ Rejected: **{len(rejected)}** candidates")
-
-        st.markdown(f"**💡 Insights:** {summary.get('hiring_insights', '')}")
-
-        common_gaps = summary.get("common_gaps", [])
-        if common_gaps:
-            st.warning(f"**Common Skill Gaps:** {' • '.join(common_gaps)}")
-
-    # ── Candidate Cards ──
->>>>>>> 041a279946a7f606a0bfa9973faa39aa3fac3376
     st.markdown('<div class="section-header">👥 Candidate Profiles</div>', unsafe_allow_html=True)
 
     for rank, candidate in enumerate(ranked, 1):
         name = candidate.get("candidate_name", f"Candidate {rank}")
-<<<<<<< HEAD
         email = candidate.get("candidate_email", "No Mail")
         score = candidate.get("overall_match_score", 0)
         rec = candidate.get("hiring_recommendation", "Unknown")
@@ -630,58 +491,6 @@ def render_recruiter_results(ranked: list, summary: dict, role: str, experience:
                 st.markdown("**⚠️ Weaknesses**")
                 for w in candidate.get("weaknesses", []): st.markdown(f"- {w}")# ─────────────────────────────────────────────
 
-=======
-        score = candidate.get("overall_match_score", 0)
-        rec = candidate.get("hiring_recommendation", "Unknown")
-        emoji, _ = get_recommendation_badge(rec)
-        filename = candidate.get("_filename", "")
-
-        with st.expander(f"#{rank} — {emoji} {name} | Match: {score}% | {rec} | {filename}"):
-            col1, col2, col3, col4 = st.columns(4)
-            with col1:
-                st.metric("🏆 Overall", f"{score}%")
-            with col2:
-                st.metric("💻 Technical", f"{candidate.get('technical_score', 0)}%")
-            with col3:
-                st.metric("📅 Experience", f"{candidate.get('experience_score', 0)}%")
-            with col4:
-                st.metric("🤖 ATS", f"{candidate.get('ats_score', 0)}%")
-
-            col_a, col_b = st.columns(2)
-            with col_a:
-                st.markdown("**✅ Matched Skills:**")
-                matched = candidate.get("matched_skills", [])
-                tags = "".join(f'<span class="tag">✅ {s}</span>' for s in matched) or "None"
-                st.markdown(tags, unsafe_allow_html=True)
-
-                st.markdown("**🎯 Bonus Skills:**")
-                bonus = candidate.get("bonus_skills", [])
-                tags = "".join(f'<span class="tag">⭐ {s}</span>' for s in bonus) or "None"
-                st.markdown(tags, unsafe_allow_html=True)
-
-            with col_b:
-                st.markdown("**❌ Missing Skills:**")
-                missing = candidate.get("missing_skills", [])
-                tags = "".join(f'<span class="tag">❌ {s}</span>' for s in missing) or "None"
-                st.markdown(tags, unsafe_allow_html=True)
-
-                st.markdown("**💬 Interview Focus Areas:**")
-                for area in candidate.get("interview_focus_areas", []):
-                    st.markdown(f"- {area}")
-
-            st.markdown("**📋 Strengths:**")
-            for s in candidate.get("strengths", []):
-                st.markdown(f"- {s}")
-
-            st.markdown("**⚠️ Weaknesses:**")
-            for w in candidate.get("weaknesses", []):
-                st.markdown(f"- {w}")
-
-            st.markdown(f"**🧾 Recommendation:** {candidate.get('recommendation_reason', '')}")
-
-
-# ─────────────────────────────────────────────
->>>>>>> 041a279946a7f606a0bfa9973faa39aa3fac3376
 # Sidebar
 # ─────────────────────────────────────────────
 def render_sidebar():
