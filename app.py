@@ -529,7 +529,7 @@ def render_sidebar():
 def main():
     render_sidebar()
 
-    st.markdown('<div class="main-title">🧠 AI Resume Intelligence Platform</div>', unsafe_allow_html=True)
+    st.markdown('<div class="main-title">🧠 Resume X</div>', unsafe_allow_html=True)
     st.markdown('<div class="subtitle">Azure + Gemini Powered Resume Analysis System</div>', unsafe_allow_html=True)
 
     st.markdown("---")
