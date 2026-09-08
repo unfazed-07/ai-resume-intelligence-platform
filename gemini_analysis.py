@@ -16,7 +16,7 @@ def _get_llm_client():
 
 def _get_gemini_model():
     """Return the Gemini model name."""
-    return os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+    return os.getenv("GEMINI_MODEL", "gemini-3.6-flash")
 
 
 def _strip_code_fences(raw_text: str) -> str:
