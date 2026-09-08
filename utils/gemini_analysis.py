@@ -47,17 +47,15 @@ def call_gemini(prompt: str) -> dict:
     model_name = _get_gemini_model()
 
     response = client.models.generate_content(
-        model=model_name,
-        contents=prompt,
-        config=types.GenerateContentConfig(
-            system_instruction=(
-                "You are a professional assistant that only returns valid JSON."
-            ),
-            temperature=0.1,
-            response_mime_type="application/json",
+    model=model_name,
+    contents=prompt,
+    config=types.GenerateContentConfig(
+        system_instruction=(
+            "You are a professional assistant that only returns valid JSON."
         ),
-    )
-
+        response_mime_type="application/json",
+    ),
+)
     raw_text = (response.text or "").strip()
 
     if not raw_text:
